@@ -1,4 +1,5 @@
 ﻿using LanchesMequi.Repositories.Interfaces;
+using LanchesMequi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanchesMequi.Controllers
@@ -14,8 +15,14 @@ namespace LanchesMequi.Controllers
 
         public IActionResult List()
         {
-            var lanches = _lancheRepository.Lanches;
-            return View(lanches);
+            //var lanches = _lancheRepository.Lanches;
+            //return View(lanches);
+
+            var lancheListViewModel = new LancheListViewModel();
+            lancheListViewModel.Lanches = _lancheRepository.Lanches;
+            lancheListViewModel.CategoriaAtual = "Categoria Atual";
+
+            return View(lancheListViewModel);
         }
     }
 }
