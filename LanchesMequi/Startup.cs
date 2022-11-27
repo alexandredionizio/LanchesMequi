@@ -1,4 +1,5 @@
 ﻿using LanchesMequi.Context;
+using LanchesMequi.Models;
 using LanchesMequi.Repositories;
 using LanchesMequi.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,12 @@ public class Startup
         services.AddTransient<ILancheRepository, LancheRepository>();
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        
+        //Por isso que criamos o método GetCarrinho como estático na pasta Models, para podermos invocar esse método
+        //sem ter uma instância da classe e já obter a partir da sessão um carrinho de compras com o 
+        //contexto e com uma lista de itens.
+        //AddScoped permite que seja criada uma instância a cada request.
+        services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
         
         services.AddControllersWithViews();
 
