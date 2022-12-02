@@ -1,4 +1,5 @@
-﻿using LanchesMequi.Repositories.Interfaces;
+﻿using LanchesMequi.Models;
+using LanchesMequi.Repositories.Interfaces;
 using LanchesMequi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,16 +14,46 @@ namespace LanchesMequi.Controllers
             _lancheRepository = lancheRepository;
         }
 
-        public IActionResult List()
+        public IActionResult List(string categoria)
         {
             //var lanches = _lancheRepository.Lanches;
             //return View(lanches);
 
-            var lancheListViewModel = new LancheListViewModel();
-            lancheListViewModel.Lanches = _lancheRepository.Lanches;
-            lancheListViewModel.CategoriaAtual = "Categoria Atual";
+            //var lancheListViewModel = new LancheListViewModel();
+            //lancheListViewModel.Lanches = _lancheRepository.Lanches;
+            //lancheListViewModel.CategoriaAtual = "Categoria Atual";
 
-            return View(lancheListViewModel);
+            IEnumerable<Lanche> lanches;
+            string categoriaAtual = string.Empty;
+
+            if (string.IsNullOrEmpty(categoria))
+            {
+                lanches = _lancheRepository.Lanches.OrderBy(l => l.LancheId);
+                categoriaAtual = "Todos os lanches";
+            }
+            else
+            {
+                if (string.Equals("Normal", categoria,StringComparison.OrdinalIgnoreCase))
+                {
+                    lanches = _lancheRepository.Lanches
+                        .Where(l => l.Categoria.CategoriaNome.Equals("Normal"))
+                        .OrderBy(l => l.Nome);
+                } else
+                {
+                    lanches = _lancheRepository.Lanches
+                        .Where(l => l.Categoria.CategoriaNome.Equals("Natural"))
+                        .OrderBy(l => l.Nome);
+                }
+                categoriaAtual = categoria;
+            }
+
+            var lanchesListViewModel = new LancheListViewModel
+            {
+                Lanches = lanches,
+                CategoriaAtual = categoriaAtual,
+            };
+
+            return View(lanchesListViewModel);
         }
     }
 }
