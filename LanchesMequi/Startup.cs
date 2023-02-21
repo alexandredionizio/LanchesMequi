@@ -22,13 +22,15 @@ public class Startup
 
         services.AddTransient<ILancheRepository, LancheRepository>();
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+        services.AddTransient<PedidoRepository, PedidoRepository>();
+
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
         
         //Por isso que criamos o método GetCarrinho como estático na pasta Models, para podermos invocar esse método
         //sem ter uma instância da classe e já obter a partir da sessão um carrinho de compras com o 
         //contexto e com uma lista de itens.
         //AddScoped permite que seja criada uma instância a cada request.
-        services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
         
         services.AddControllersWithViews();
 
