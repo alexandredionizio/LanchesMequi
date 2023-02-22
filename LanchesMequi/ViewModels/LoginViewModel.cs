@@ -8,7 +8,7 @@ namespace LanchesMequi.ViewModels
         [Display(Name = "Usuário")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Informe s senha")]
+        [Required(ErrorMessage = "Informe a senha")]
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Password { get; set; }
