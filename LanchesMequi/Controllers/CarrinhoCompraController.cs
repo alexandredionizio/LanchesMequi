@@ -1,6 +1,7 @@
 ﻿using LanchesMequi.Models;
 using LanchesMequi.Repositories.Interfaces;
 using LanchesMequi.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanchesMequi.Controllers
@@ -31,6 +32,7 @@ namespace LanchesMequi.Controllers
             return View(carrinhoCompraVM);
         }
 
+        [Authorize]
         public RedirectToActionResult AdicionarItemNoCarrinhoCompra(int lancheId)
         {
             var lancheSelecionado = _lancheRepository.Lanches
@@ -43,6 +45,7 @@ namespace LanchesMequi.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult RemoverItemNoCarrinhoCompra(int lancheId)
         {
             var lancheSelecionado = _lancheRepository.Lanches
