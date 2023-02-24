@@ -55,7 +55,7 @@ namespace LanchesMequi.Controllers
             var lanchesListViewModel = new LancheListViewModel
             {
                 Lanches = lanches,
-                CategoriaAtual = categoriaAtual,
+                CategoriaAtual = categoriaAtual
             };
 
             return View(lanchesListViewModel);

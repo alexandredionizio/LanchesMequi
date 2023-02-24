@@ -29,7 +29,7 @@ namespace LanchesMequi.Controllers
         [HttpPost]
         public IActionResult Checkout(Pedido pedido) 
         {
-            int totalIntensPedido = 0;
+            int totalItensPedido = 0;
             decimal precoTotalPedido = 0.0m;
 
             //Obtém os itens do carrinho de compra do cliente
@@ -45,12 +45,12 @@ namespace LanchesMequi.Controllers
             //calcula o total de itens e o total do pedido
             foreach (var item in items)
             {
-                totalIntensPedido += item.Quantidade;
+                totalItensPedido += item.Quantidade;
                 precoTotalPedido += (item.Lanche.Preco * item.Quantidade);
             }
 
             //atribui os valores obtidos ao pedido
-            pedido.TotalItensPedido = totalIntensPedido;
+            pedido.TotalItensPedido = totalItensPedido;
             pedido.PedidoTotal = precoTotalPedido;
 
             //valida os dados do pedido
