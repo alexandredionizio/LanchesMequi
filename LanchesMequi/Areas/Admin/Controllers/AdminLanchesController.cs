@@ -9,6 +9,7 @@ using LanchesMequi.Context;
 using LanchesMequi.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using ReflectionIT.Mvc.Paging;
 
 namespace LanchesMequi.Areas.Admin.Controllers
 {
@@ -23,11 +24,24 @@ namespace LanchesMequi.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/AdminLanches
-        public async Task<IActionResult> Index()
+        //// GET: Admin/AdminLanches
+        //public async Task<IActionResult> Index()
+        //{
+        //    var appDbContext = _context.Lanches.Include(l => l.Categoria);
+        //    return View(await appDbContext.ToListAsync());
+        //}
+
+        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "Nome")
         {
-            var appDbContext = _context.Lanches.Include(l => l.Categoria);
-            return View(await appDbContext.ToListAsync());
+            var resultado = _context.Lanches.Include(l => l.Categoria).AsQueryable();
+            if (!string.IsNullOrEmpty(filter))
+            {
+                resultado = resultado.Where(p => p.Nome.Contains(filter));
+            }
+
+            var model = await PagingList.CreateAsync(resultado, 5, pageindex, sort, "Nome");
+            model.RouteValue = new RouteValueDictionary { { "filter", filter } };
+            return View(model);
         }
 
         // GET: Admin/AdminLanches/Details/5

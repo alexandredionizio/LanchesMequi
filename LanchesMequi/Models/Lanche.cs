@@ -47,6 +47,7 @@ namespace LanchesMequi.Models
         public bool EmEstoque { get; set; }
 
         //Relacionamento 1:1
+        [Display(Name = "Categorias")]
         public int CategoriaId { get; set; }
         public virtual Categoria Categoria { get; set; }
     }
