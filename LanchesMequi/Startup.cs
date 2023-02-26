@@ -6,6 +6,7 @@ using LanchesMequi.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using ReflectionIT.Mvc.Paging;
 
 namespace LanchesMequi;
 public class Startup
@@ -52,6 +53,12 @@ public class Startup
         //AddScoped permite que seja criada uma instância a cada request.
         
         services.AddControllersWithViews();
+
+        services.AddPaging(options =>
+        {
+            options.ViewName = "Bootstrap4";
+            options.PageParameterName = "pageindex";
+        });
 
         services.AddMemoryCache();
         services.AddSession();
