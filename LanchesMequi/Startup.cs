@@ -1,4 +1,5 @@
-﻿using LanchesMequi.Context;
+﻿using LanchesMequi.Areas.Admin.Servicos;
+using LanchesMequi.Context;
 using LanchesMequi.Models;
 using LanchesMequi.Repositories;
 using LanchesMequi.Repositories.Interfaces;
@@ -33,6 +34,7 @@ public class Startup
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
         services.AddTransient<IPedidoRepository, PedidoRepository>();
         services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+        services.AddScoped<RelatorioVendasService>();
 
         //registrar a politica para autorização baseada nas roles
         services.AddAuthorization(options =>
