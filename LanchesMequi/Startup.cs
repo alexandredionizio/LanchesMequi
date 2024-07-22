@@ -28,6 +28,7 @@ public class Startup
         services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
+        services.Configure<ConfigurationImagens>(Configuration.GetSection("ConfigurationPastaImagens"));
 
 
         services.AddTransient<ILancheRepository, LancheRepository>();
@@ -81,6 +82,7 @@ public class Startup
             app.UseHsts();
         }
         app.UseHttpsRedirection();
+        app.UseStaticFiles();
 
         app.UseStaticFiles();
         app.UseRouting();
