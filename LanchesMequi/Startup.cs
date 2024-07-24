@@ -36,6 +36,7 @@ public class Startup
         services.AddTransient<IPedidoRepository, PedidoRepository>();
         services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
         services.AddScoped<RelatorioVendasService>();
+        services.AddScoped<GraficoVendasService>();
 
         //registrar a politica para autorização baseada nas roles
         services.AddAuthorization(options =>
